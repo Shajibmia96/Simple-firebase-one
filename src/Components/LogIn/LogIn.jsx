@@ -1,16 +1,22 @@
-
-import { GoogleAuthProvider, getAuth } from "firebase/auth";
-import app from "../../Firebase/Firebase.init";
+import { GoogleAuthProvider, getAuth , signInWithPopup } from "firebase/auth";
+import app from '../../Firebase/Firebase.init'
 
 const LogIn = () => {
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
-    const handleGoogleSingIn = ()=>{
-            console.log('hello google mama')
+    const handleGoogleSingIn= () =>{
+        const auth = getAuth(app)
+        const provider = new GoogleAuthProvider()
+         signInWithPopup(auth , provider)
+         .then ( result => {
+            const user = result.user;
+            console.log(user)
+         })
+         .catch(error =>{
+            console.log(error , error.massage)
+         })
     }
     return (
         <div>
-              <button onClick={handleGoogleSingIn}>Log in With google</button>
+              <button onClick={handleGoogleSingIn}>Log in google</button>
         </div>
     );
 };
